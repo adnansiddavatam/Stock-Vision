@@ -6,8 +6,13 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 from forex_python.converter import CurrencyRates
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import sys  # Import sys to use sys.exit()
 
 def fetch_and_plot():
+    # Clearing previous figure in the GUI
+    for widget in frame.winfo_children():
+        widget.destroy()
+
     # Retrieving values from the GUI
     ticker_symbol = symbol_entry.get()
     start_date = start_date_entry.get()
@@ -33,10 +38,14 @@ def fetch_and_plot():
     ax.legend()
 
     # Integrating matplotlib figure into Tkinter window
-    canvas = FigureCanvasTkAgg(fig, master=window)  
+    canvas = FigureCanvasTkAgg(fig, master=frame)  
     canvas_widget = canvas.get_tk_widget()
-    canvas_widget.grid(row=5, column=0, columnspan=4)
+    canvas_widget.pack()
     canvas.draw()
+
+def on_closing():
+    window.destroy()
+    sys.exit()
 
 # Setting up the GUI window
 window = tk.Tk()
@@ -62,5 +71,11 @@ currency_entry.grid(row=3, column=1)
 # Submit button
 submit_button = ttk.Button(window, text="Analyze", command=fetch_and_plot)
 submit_button.grid(row=4, column=0, columnspan=2)
+
+# Frame for matplotlib canvas
+frame = tk.Frame(window)
+frame.grid(row=5, column=0, columnspan=4)
+
+window.protocol("WM_DELETE_WINDOW", on_closing)  # Handle window closing
 
 window.mainloop()
