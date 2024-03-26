@@ -6,7 +6,6 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 from forex_python.converter import CurrencyRates
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import matplotlib.dates as mdates  # Import for handling date formatting
 import sys  # Import sys to use sys.exit()
 
 def fetch_and_plot():
@@ -37,14 +36,6 @@ def fetch_and_plot():
     ax.set_xlabel('Date')
     ax.set_ylabel(f'Price ({currency})')
     ax.legend()
-
-    # Format the dates on x-axis
-    ax.xaxis.set_major_locator(mdates.AutoDateLocator())
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
-    plt.xticks(rotation=45)
-
-    # Adjust layout to make room for the x-axis labels
-    plt.tight_layout()
 
     # Integrating matplotlib figure into Tkinter window
     canvas = FigureCanvasTkAgg(fig, master=frame)  
