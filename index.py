@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkcalendar import DateEntry
 import numpy as np
 import pandas as pd
 import yfinance as yf
@@ -65,12 +66,15 @@ tk.Label(window, text="Stock Ticker Symbol:").grid(row=0)
 symbol_entry = tk.Entry(window)
 symbol_entry.grid(row=0, column=1)
 
-tk.Label(window, text="Start Date (YYYY-MM-DD):").grid(row=1)
-start_date_entry = tk.Entry(window)
+# Use DateEntry for start and end dates
+tk.Label(window, text="Start Date:").grid(row=1)
+start_date_entry = DateEntry(window, width=12, background='darkblue',
+                             foreground='white', borderwidth=2, date_pattern='yyyy-mm-dd')
 start_date_entry.grid(row=1, column=1)
 
-tk.Label(window, text="End Date (YYYY-MM-DD):").grid(row=2)
-end_date_entry = tk.Entry(window)
+tk.Label(window, text="End Date:").grid(row=2)
+end_date_entry = DateEntry(window, width=12, background='darkblue',
+                           foreground='white', borderwidth=2, date_pattern='yyyy-mm-dd')
 end_date_entry.grid(row=2, column=1)
 
 tk.Label(window, text="Currency (e.g., USD):").grid(row=3)
